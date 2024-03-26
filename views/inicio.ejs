@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <link rel="icon" href="/favicon.ico" type="image/x-icon"></head>  
+      <link rel="stylesheet" type="text/css" href="/stylesheets/menu.css">
+   </head>
+<body>
+    <div class="titulo">
+    <h1>Lista de Animales</h1>
+    
+      <div class="grid-container">
+        <% animales.forEach(function(animal, index) { %>
+          <div class="grid-item">
+            <h2><%= animal.nombre %></h2>
+            <div class="image-container">
+              <img src="<%= animal.imagen %>" alt="Imagen de <%= animal.nombre %>" class="animal-image myImg" />
+             
+              
+            </div>
+            <!-- The Modal -->
+            <div id="myModal<%= index %>" class="modal myModal">
+              <!-- Modal content -->
+              <div class="modal-content">
+                <span class="close">&times;</span>
+                <img src="<%= animal.imagen %>" alt="Imagen de <%= animal.nombre %>" class="modal-img" />
+                <div class="modal-description">
+                  <h3><%= animal.nombre %></h3>
+                  <!-- Aquí puedes añadir más detalles sobre el animal si lo deseas -->
+                </div>
+                <div class="dropdown">
+                  <div class="select dropdownMenuButton" id="dropdownMenuButton<%= index %>">
+                    <span class="selected">Colores</span>
+                    <span class="caret">&#9662;</span>
+                  </div>
+                  <ul class="menu dropdownMenu" id="dropdownMenu<%= index %>">
+                    <li data-value="1">Rosa</li>
+                    <li data-value="2">Amarillo</li>
+                    <li data-value="3">Verde</li>
+                  </ul>
+                </div>
+                <div class="dropdown">
+                  <div class="select dropdownMenuButton Accesorios">
+                    <span class="selected">Accesorios</span>
+                    <span class="caret">&#9662;</span>
+                  </div>
+                  <ul class="menu dropdownMenu">
+                    <li data-value="<%= index %>">camiseta y pelota de futbol</li>
+                    <li data-value="<%= index %>">guitarra eléctrica</li>
+                    <li data-value="<%= index %>">notebook</li>
+                  </ul>
+              </div>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+      // Utilizando jQuery
+$(document).ready(function() {
+  $('#ddlPrimero').change(function() {
+    if ($(this).val() !== "") {
+      $('#ddlSegundo').hide();
+    } else {
+      $('#ddlSegundo').show();
+    }
+  });
+
+  $('#ddlSegundo').change(function() {
+    if ($(this).val() !== "") {
+      $('#ddlPrimero').hide();
+    } else {
+      $('#ddlPrimero').show();
+    }
+  });
+});
+
+    
+    <script src="/scripts/ImagenModals"></script>       
+    </body>
+    </html>
