@@ -1,0 +1,5 @@
+const { obtenerNombresDeAnimales } = require('./conexion');
+
+module.exports = {
+  obtenerNombresDeAnimales
+};
