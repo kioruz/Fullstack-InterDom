@@ -1,0 +1,130 @@
+
+/* ///////////////////////////DDL/////////////////////////*/
+.dropdown {
+  position: relative;
+  width: 300px;
+  left: 50%;
+  top: 20%;
+  margin-bottom: auto ;
+}
+.select {
+  padding: 10px;
+  background-color: #f2f2f2;
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+}
+/* Añade espacio alrededor de cada lista desplegable */
+.select-dropdown {
+  margin: 10px; /* Ajusta el valor de los píxeles según necesites */
+}
+
+.caret {
+  float: right;
+}
+
+.menu {
+  position: absolute;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+  width: 100%;
+  background-color: #f2f2f2;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  
+}
+
+.menu li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.menu li:hover {
+  background-color: #ddd;
+}
+.show {
+  display: block;
+}
+
+
+/* ///////////////////imagenes grid/////////////////////////*/
+.content {
+  margin-right: 200px; /* Ajusta el margen derecho para que el contenido principal no se superponga */
+  padding: 20px;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1%; /* Ajusta el espacio entre elementos */
+  width: 100%; /* Ocupa el ancho completo del contenedor padre */
+
+}
+
+.grid-item {
+  /*text-align: center; /* Centrar el texto y la imagen */
+  margin:auto;
+  text-align: center;
+  color: aqua;
+ 
+}
+
+.animal-image {
+  width: 100%; /* Ocupa el ancho completo de .image-container */
+  height: 300px; /* Mantiene la proporción de aspecto de la imagen */
+  object-fit: cover; /* Asegurar que la imagen cubra el área sin perder su aspecto */
+  border-radius: 5px; /* Opcional: bordes redondeados */
+}
+.image-container {
+  position: relative;
+  display: block; /* Cambia a block para que se ajuste al ancho de .grid-item */
+  width: 100%; /* Ocupa el ancho completo de .grid-item */
+  height: auto;
+  padding: 5%;
+}
+
+
+.btn-over-image {
+  position: absolute;
+  top: 50%;  /* Posiciona el botón en el centro verticalmente */
+  left: 50%; /* Posiciona el botón en el centro horizontalmente */
+  transform: translate(-50%, -50%); /* Ajusta la posición exacta del botón */
+}
+
+
+.modal {
+  display: none; /* Ocultar el modal por defecto */
+  position: fixed; /* Se queda fijo en el lugar */
+  z-index: 1; /* Se sitúa sobre los demás elementos */
+  top: 20%;
+  left: 20%;
+  width: 50%; /* Ancho completo */
+  height: 50%; /* Alto completo */
+  overflow: auto; /* Habilita el scroll si es necesario */
+  background-color: rgba(0, 0, 0, 0.9); /* Color de fondo con opacidad */
+}
+
+.modal-img {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  max-width: 70%; /* Ancho máximo de la imagen */
+  max-height: 70%; /* Altura máxima de la imagen */
+}
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
