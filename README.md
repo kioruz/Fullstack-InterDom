@@ -2,7 +2,9 @@
 ## Instalación
 
  
- npm install 
+ ```bash
+npm install
+```
 ``` npm install app-module-path cors dotenv ejs express jsonwebtoken mongodb mongoose nodemailer```
 
 ## Agregar las variables .env
