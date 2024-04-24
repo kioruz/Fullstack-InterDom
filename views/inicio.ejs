@@ -54,26 +54,25 @@
           </div>
         <% }); %>
       </div>
-      // Utilizando jQuery
-$(document).ready(function() {
-  $('#ddlPrimero').change(function() {
-    if ($(this).val() !== "") {
-      $('#ddlSegundo').hide();
-    } else {
-      $('#ddlSegundo').show();
-    }
-  });
-
-  $('#ddlSegundo').change(function() {
-    if ($(this).val() !== "") {
-      $('#ddlPrimero').hide();
-    } else {
-      $('#ddlPrimero').show();
-    }
-  });
-});
-
-    
+      <script>
+        $(document).ready(function() {
+          $('#dropdownMenu<%= index %>').change(function() {
+            if ($(this).val() !== "") {
+              $('#ddlSegundo').hide();
+            } else {
+              $('#ddlSegundo').show();
+            }
+          });
+      
+          $('#ddlSegundo').change(function() {
+            if ($(this).val() !== "") {
+              $('#ddlPrimero').hide();
+            } else {
+              $('#ddlPrimero').show();
+            }
+          });
+        });
+      </script>
     <script src="/scripts/ImagenModals"></script>       
     </body>
     </html>

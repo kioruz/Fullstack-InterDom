@@ -2,12 +2,14 @@ require('mongoose');
 const Color = require('../models/Colores');
 
 
-const addColor = async (nombre,isActive,) => {
+const addColor = async (nombre) => {
 
     try{
         let existColor = await Color.findOne({ nombre: nombre });
+        console.log('if controller',nombre);
     if(existColor)
     {
+        console.log('if controller');
         console.log('Ya existe el color',existUser);
     }
     
@@ -15,8 +17,7 @@ const addColor = async (nombre,isActive,) => {
 
         const col = new Color(
             {              
-                nombre: nombre,
-                isActive:isActive,
+                nombre: nombre
                 
             }
         );

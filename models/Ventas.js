@@ -4,7 +4,7 @@ const VentasSchema = new Schema({
 	
 	email:{
 		type: String,
-		required:true,
+		required:true
 	},
 	AnimalNombre:{
 		type: String,
@@ -20,17 +20,19 @@ const VentasSchema = new Schema({
 	},
 	AnimalImagen:{
 		type: String,
-		required:false
+		required:false,
+		default:'null'
 	},
 	AccImagen:{
 		type: String,
-		required:false
+		required:false,
+		default:'null'
 	},
 	
 }, { timestamps: true } ).set('toJSON',{
     transform: (document, object) => {
         object.id = document.id;
-        delete object._id;   
+        delete object._id;
     }
 });
 const Ventas = mongoose.model('Ventas', VentasSchema, 'Ventas');

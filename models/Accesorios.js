@@ -9,11 +9,13 @@ const AcceSchema = new Schema({
 	},
     imagen:{
 		type: String,
-		required:false
+		required:false,
+		default:'null'
 	},
 	isActive:{
 		type: Boolean,
-		required:false
+		required:false,
+		default:true
     },
 }, { timestamps: true } ).set('toJSON',{
     transform: (document, object) => {

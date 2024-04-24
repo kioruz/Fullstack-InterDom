@@ -9,7 +9,8 @@ const ColSchema = new Schema({
 	},
 	isActive:{
 		type: Boolean,
-		required:true
+		required:true,
+		default:'true',
 	},
 	
 }, { timestamps: true } ).set('toJSON',{

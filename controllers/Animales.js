@@ -61,8 +61,7 @@ const getAnimalID = async(id) => {
 */
 const editAnimal = async(animal) => {
     try {
-      console.log("Intentando actualizar el animal con ID:", animal._id);
-      console.log("Datos para actualizar:", animal);
+      
   
       const result = await Animales_.findByIdAndUpdate(animal._id, {$set:{nombre: animal.nombre, imagen:animal.imagen, isActive:animal.isActive}}, { new: true });
   

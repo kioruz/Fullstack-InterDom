@@ -1,1 +1,13 @@
-Test
+ "dependencies": {
+    "app-module-path": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.9",
+    "express": "^4.19.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "6.5",
+    "mongoose": "^8.2.3",
+    "nodemailer": "^6.9.13"
+  },
+
+  Usar "Bearer <token>" en POSTMAN

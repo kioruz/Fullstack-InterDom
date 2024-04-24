@@ -11,11 +11,13 @@ const AnimalSchema = new Schema({
 	imagen:{
 		type:String,
 		require:false,
+		default:'null',
 	},
 	
 	isActive:{
 		type: Boolean,
-		required:true
+		required:true,
+		default:true
 	},
 	
 }, { timestamps: true } ).set('toJSON',{

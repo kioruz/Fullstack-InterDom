@@ -29,20 +29,8 @@ mongoose
 app.use(cors());
 app.use(express.json());
 
-
-app.get("/", (req, res) => {
-  res.send("Hola estoy funcionando.");
-  res.status(200).json("Hola estoy funcionando.");
-});
-
-// GET - POST - DELETE - PUT - PATCH 
-
-app.post("/",(req,res) => {
-    res.send("Llamada post");
-});
-
 // Get de todos los usuarios
-app.get("/users",Middleware.verify,async (req,res) =>{
+app.get("/users",Middleware.verify,Middleware.IsAdmin,async (req,res) =>{
 //  app.get("/users",async (req,res) =>{
   let limit = req.query.limit;
   let offset = req.query.offset;
@@ -59,7 +47,7 @@ app.get("/users",Middleware.verify,async (req,res) =>{
 
 // Get Info de un usuario
 
-app.get("/users/:id",async (req,res) =>{
+app.get("/users/:id",Middleware.verify,async (req,res) =>{
 
     let userId =  req.params.id;
 
@@ -99,7 +87,7 @@ app.post("/users",async (req,res) =>{
 });
 
 // Modifico un usuario
-app.put("/users/:id",async (req,res) =>{
+app.put("/users/:id",Middleware.verify,Middleware.IsAdmin,async (req,res) =>{
 
     const user = { _id: req.params.id, ...req.body };
     //             {_id: req.params.id, name: req.body.name, lastname, email }
@@ -116,9 +104,28 @@ app.put("/users/:id",async (req,res) =>{
     } 
 
 });
+// cambio password
+app.put("/users/me/:id",Middleware.verify,async (req,res) =>{
+
+  const user = { _id: req.params.id, ...req.body };
+  //             {_id: req.params.id, name: req.body.name, lastname, email }
+  try{
+    
+    const result = await UsrController.editpassword(user);
+    if(result){
+      res.status(200).json(result);
+    }else{
+      res.status(404).send("Error else.");
+    }  
+  }catch(error){  
+     res.status(500).send("Error");
+  } 
+
+});
+
 
 // Elimino un usuario
-app.delete("/users/:id", async(req,res) =>{
+app.delete("/users/:id",Middleware.verify,Middleware.IsAdmin, async(req,res) =>{
 
     try{
 
@@ -133,8 +140,8 @@ app.delete("/users/:id", async(req,res) =>{
       res.status(500).send("Error")
     }
 });
-
-app.put("/users/:id/roles",async (req,res) =>{
+//roles
+app.put("/users/:id/roles",Middleware.verify,Middleware.IsAdmin,async (req,res) =>{
     
     const roles = req.body.roles;
     //const user = { _id: req.params.id, ...req.body };
@@ -151,6 +158,7 @@ app.put("/users/:id/roles",async (req,res) =>{
     } 
 })
 
+//login
 app.post("/auth/login", async (req,res) => {
 
     const email = req.body.email;
@@ -160,12 +168,15 @@ app.post("/auth/login", async (req,res) => {
       if(result){
         res.status(200).json(result);
       }else{
-        res.status(401).send("No puede estar aqui")
+        res.status(401).send("Usuario o Contraseña incorrectos")
       }
     }catch(error){
         res.status(500).send("Error");
     }  
 })
+//logout
+app.get('/logout',)
+
 console.log(PORT);
 
 /* Manda un mail */
@@ -178,12 +189,11 @@ http.listen(PORT, () => {
 ////////////////////////////////////////////////////Colores//////////////////////////////////////////////
 
 //Crear Color
-app.post("/colores",async (req,res) =>{
+app.post("/colores",Middleware.verify,Middleware.IsAdmin,async (req,res) =>{
     
-  let name = req.body.name;
-  let isActive = req.body.isActive;
+  let nombre = req.body.nombre;
   try{
-    const result = await ColorController.addColor(name,isActive);
+    const result = await ColorController.addColor(nombre);
     if(result){
       res.status(201).send("Color creado correctamente"); // 201
     }else{
@@ -197,7 +207,7 @@ app.post("/colores",async (req,res) =>{
 });
 
 // Get todos los colores
-app.get("/colores",Middleware.verify,async (req,res) =>{
+app.get("/colores",async (req,res) =>{
   //app.get("/users",async (req,res) =>{
     let limit = req.query.limit;
     let offset = req.query.offset;
@@ -213,7 +223,7 @@ app.get("/colores",Middleware.verify,async (req,res) =>{
   });
 
 // Modifico un color
-app.put("/colores/:id",async (req,res) =>{
+app.put("/colores/:id",Middleware.verify,Middleware.IsAdmin,async (req,res) =>{
 
   const color = { _id: req.params.id, ...req.body };
 
@@ -232,7 +242,7 @@ app.put("/colores/:id",async (req,res) =>{
 });
 
 // Elimino un color
-app.delete("/colores/:id", async(req,res) =>{
+app.delete("/colores/:id",Middleware.verify,Middleware.IsAdmin, async(req,res) =>{
 
   try{
 
@@ -251,7 +261,7 @@ app.delete("/colores/:id", async(req,res) =>{
 ////////////////////////////////////////////////////Animales//////////////////////////////////////////////
 
 //Crear Animal
-app.post("/animales",async (req,res) =>{
+app.post("/animales",Middleware.verify,Middleware.IsAdmin,async (req,res) =>{
     
   let nombre = req.body.nombre;
   let image = req.body.image
@@ -271,7 +281,7 @@ app.post("/animales",async (req,res) =>{
 });
 
 // Get todos los animales
-app.get("/animales",Middleware.verify,async (req,res) =>{
+app.get("/animales",async (req,res) =>{
     let limit = req.query.limit;
     let offset = req.query.offset;
   
@@ -286,7 +296,7 @@ app.get("/animales",Middleware.verify,async (req,res) =>{
   });
 
 // Modifico un animal
-app.put("/animales/:id",async (req,res) =>{
+app.put("/animales/:id",Middleware.verify,Middleware.IsAdmin,async (req,res) =>{
 
   const animal = { _id: req.params.id, ...req.body };
 
@@ -306,7 +316,7 @@ app.put("/animales/:id",async (req,res) =>{
 });
 
 // Elimino un animal
-app.delete("/animales/:id", async(req,res) =>{
+app.delete("/animales/:id",Middleware.verify,Middleware.IsAdmin, async(req,res) =>{
 
   try{
 
@@ -325,7 +335,7 @@ app.delete("/animales/:id", async(req,res) =>{
 ////////////////////////////////////////////////////Accesorios//////////////////////////////////////////////
 
 //Crear Accesorio
-app.post("/Accesorios",async (req,res) =>{
+app.post("/Accesorios",Middleware.verify,Middleware.IsAdmin,async (req,res) =>{
     
   let nombre = req.body.nombre;
   let image = req.body.image
@@ -345,7 +355,7 @@ app.post("/Accesorios",async (req,res) =>{
 });
 
 // Get todos los Accesorios
-app.get("/Accesorios",Middleware.verify,async (req,res) =>{
+app.get("/Accesorios",async (req,res) =>{
     let limit = req.query.limit;
     let offset = req.query.offset;
   
@@ -360,7 +370,7 @@ app.get("/Accesorios",Middleware.verify,async (req,res) =>{
   });
 
 // Modifico un Accesorio
-app.put("/Accesorios/:id",async (req,res) =>{
+app.put("/Accesorios/:id",Middleware.verify,Middleware.IsAdmin,async (req,res) =>{
 
   const animal = { _id: req.params.id, ...req.body };
 
@@ -380,7 +390,7 @@ app.put("/Accesorios/:id",async (req,res) =>{
 });
 
 // Elimino un Accesorio
-app.delete("/Accesorios/:id", async(req,res) =>{
+app.delete("/Accesorios/:id",Middleware.verify,Middleware.IsAdmin, async(req,res) =>{
 
   try{
 
@@ -399,7 +409,7 @@ app.delete("/Accesorios/:id", async(req,res) =>{
 ////////////////////////////////////////////////////Ventas//////////////////////////////////////////////
 
 //Crear Ventas
-app.post("/Ventas",async (req,res) =>{
+app.post("/ventas",Middleware.verify,async (req,res) =>{
     
   let email = req.body.email;
   let AnimalNombre = req.body.AnimalNombre;
@@ -408,26 +418,33 @@ app.post("/Ventas",async (req,res) =>{
   let AnimalImagen = req.body.AnimalImagen;
   let AccImagen = req.body.AccImagen;
   try{
-    const result = await AccesoriosController.addAccesorios(nombre,image,isActive);
+    const result = await VentasController.addVenta(
+      email,
+      AnimalNombre,
+      ColorNombre,
+      AccNombre,
+      AnimalImagen,
+      AccImagen
+    );
     if(result){
-      res.status(201).send("Accesorio creado correctamente"); // 201
+      res.status(201).send("Guardado correctamente"); // 201
     }else{
-      res.status(409).send("Accesorio ya existe"); // 409
+      res.status(409).send("Eror al guardar"); // 409
     }  
   }catch(error){
     console.error(error);
-    res.status(500).send(`Error al crear accesorio: ${error.message}`); //500
+    res.status(500).send(`Error al guardar venta: ${error.message}`); //500
   }  
   
 });
 
-// Get todos los Accesorios
-app.get("/Accesorios",Middleware.verify,async (req,res) =>{
+// Get todas las ventas admin
+app.get("/ventas",Middleware.verify,async (req,res) =>{
     let limit = req.query.limit;
     let offset = req.query.offset;
   
     try{
-        const results = await AccesoriosController.getAllAccesorios(limit,offset);
+        const results = await VentasController.getAllVenta(limit,offset);
         res.status(200).json(results);
   
     }catch(error){
@@ -436,39 +453,65 @@ app.get("/Accesorios",Middleware.verify,async (req,res) =>{
   
   });
 
-// Modifico un Accesorio
-app.put("/Accesorios/:id",async (req,res) =>{
-
-  const animal = { _id: req.params.id, ...req.body };
+  // Get ventas recive email del token
+app.get("/ventas/me",Middleware.verify,async (req,res) =>{
+  let limit = req.query.limit;
+  let offset = req.query.offset;
 
   try{
-    
-    const result = await AccesoriosController.editAccesorios(animal);
-    if(result){
-      res.status(200).json(result);
-    }else{
-      res.status(404).send("El accesorio no existe.");
-    }  
-  }catch(error){  
-     res.status(500).send("Error");
-     console.log("error",error);
-  } 
+      const results = await VentasController.getVentaEmail(req.user.email,limit,offset);
+      res.status(200).json(results);
+
+  }catch(error){
+      res.status(500).send("Error. Intente mas tarde.")
+  }
 
 });
 
-// Elimino un Accesorio
-app.delete("/Accesorios/:id", async(req,res) =>{
+
+// Elimino 
+app.delete("/ventas/:id",Middleware.verify, async(req,res) =>{
 
   try{
 
-    const result = await AccesoriosController.deleteAccesorios(req.params.id);
+    const result = await VentasController.deleteVenta(req.params.id);
     if(result){
-      res.status(200).send("Accesorio borrado.")
+      res.status(200).send("Venta borrada.")
     }else{
-      res.status(404).send("No se ha podido eliminar el accesorio.")
+      res.status(404).send("No se ha podido eliminar.")
     }  
 
   }catch(error){
     res.status(500).send("Error")
   }
+});
+// Elimino usuario ventas
+app.delete("/ventas/me/:id",Middleware.verify, async(req,res) =>{
+
+  try{
+
+    const result = await VentasController.deleteVentaUsuario(req.user.email,req.params.id);
+    if(result){
+      res.status(200).send("Venta borrada.")
+    }else{
+      res.status(404).send("No se ha podido eliminar.")
+    }  
+
+  }catch(error){
+    res.status(500).send("Error")
+  }
+});
+// Get ranking
+app.get("/ventas/ranking",async (req,res) =>{
+  let limit = req.query.limit;
+  let offset = req.query.offset;
+
+  try{
+      const results = await VentasController.ranking(limit,offset);
+      res.status(200).json(results);
+
+  }catch(error){
+      res.status(500).send("Error. Intente mas tarde.")
+  }
+
 });

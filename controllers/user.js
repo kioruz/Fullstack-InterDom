@@ -66,6 +66,20 @@ const editUser = async(user) => {
     return result;
 }
 
+const editpassword = async(user) => {
+
+    const us = await Usuarios.findById(user._id)
+    console.log('entro edit',user._id,user.password)
+
+    const cryptoPass = require('crypto')
+        .createHash('sha256')
+        .update(user.password)
+        .digest('hex');
+
+    const result = await Usuarios.findByIdAndUpdate(user._id,{$set:{password:cryptoPass}},{new:true});
+    return result
+}
+
 const editRoles = async(roles,id) => {
 
     const result = await Usuarios.findByIdAndUpdate(id,{$set:{roles:roles}},{new:true});
@@ -80,4 +94,4 @@ const deleteUser = async(id) => {
     return result;
 }
 
-module.exports = { addUser, getAllUsers, getUser, editUser, editRoles, deleteUser }
+module.exports = { addUser, getAllUsers, getUser, editUser, editRoles, deleteUser,editpassword }
