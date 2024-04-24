@@ -2,7 +2,7 @@
   <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Logo-up.jpg" alt="UP" width="150" height="150">
 </p>
 
-# Venta de peluches UP
+# Peluches UP
 ## Instalación
 
  
