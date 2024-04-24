@@ -1,5 +1,5 @@
 <p align="right">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Logo-up.jpg" alt="UP" width="200" height="200">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Logo-up.jpg" alt="UP" width="150" height="150">
 </p>
 
 # Venta de peluches UP
