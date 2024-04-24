@@ -1,3 +1,4 @@
+![texto alternativo](https://upload.wikimedia.org/wikipedia/commons/b/b4/Logo-up.jpg) 
 # Venta de peluches UP
 ## Instalación
 
@@ -25,4 +26,5 @@ JWT_EXPIRE
 
 ## Uso
 
-Esta configurado para usar con la opcion de Beareer token en POSTMAN.
+Esta configurado para usar con la opcion de Bearer Token en POSTMAN.
+
