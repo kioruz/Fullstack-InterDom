@@ -67,8 +67,6 @@ const deleteVenta = async(id) => {
 }
 const deleteVentaUsuario = async(us,id) => {
 
- 
-    console.log('datos:',id,'+',us)
     const lista = await getVentaEmail(us);
     const buscarid = lista.find(venta =>venta.id===id);
 
