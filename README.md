@@ -2,17 +2,20 @@
 ## Instalación
 
  
-``` npm install ```
+ npm install 
 ``` npm install app-module-path cors dotenv ejs express jsonwebtoken mongodb mongoose nodemailer```
 
 ## Agregar las variables .env
 
 PORT 
 * Puerto de conexion
+
 MONGO_URL 
 * Url de la base de datos de mongo
+
 JWT_SECRET
 * Clave secreta de JWT
+
 JWT_EXPIRE
 * Tiempo de expiracion de la clave JWT
 
