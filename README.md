@@ -1,4 +1,7 @@
-![texto alternativo](https://upload.wikimedia.org/wikipedia/commons/b/b4/Logo-up.jpg) 
+<p align="right">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Logo-up.jpg" alt="UP" width="100" height="100">
+</p>
+
 # Venta de peluches UP
 ## Instalación
 
