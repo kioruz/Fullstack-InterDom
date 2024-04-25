@@ -36,11 +36,13 @@ Esta configurado para usar con la opcion de Bearer Token en POSTMAN.
 * para admin
 
 email:admin 
+
 password: admin
 
 * usuario normal
   
 email:user 
+
 password: user
 
 
